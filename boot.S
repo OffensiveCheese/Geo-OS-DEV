@@ -23,6 +23,22 @@ stack_top:
 .global _start
 .type _start, @function
 _start:
+	subl $6, %esp
+	movw size_of_gdt_minus_one, %cx
+	movw %cx, 0(%esp)
+	movl $gdt, %ecx
+	movl $ecx, 2(%esp)
+	lgdt 0(%esp)
+	addl $6, %esp
+	push $0x08
+	push $1f
+	retf
+	movw $0x10, %cx
+	movw %cx, %ds
+	movw %cx, %es
+	movw %cx, %fs
+	movw %cx, %gs
+	movw %cx, %ss
 	# Hooray! We're in our .text function! Let's call our kernel.
 	# C and C++ need a stack to function, so we'll need to set up the stack.
 	mov $stack_top, %esp	
