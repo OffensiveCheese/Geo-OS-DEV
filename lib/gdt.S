@@ -8,7 +8,6 @@ lgdt:
 	ljmp $0x08,$code_segm
 code_segm:
 	mov $0x10, %eax
-	mov %eax, %cs
 	mov %eax, %ds
 	mov %eax, %es
 	mov %eax, %fs

@@ -39,3 +39,5 @@ void gdt_load(void) {
 	gdt_set_entry(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // Usermode Data Segment.
 	lgdt();
 }
+
+uint16_t size_of_gdt_minus_one = sizeof(gdt) - 1;
