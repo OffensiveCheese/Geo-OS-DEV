@@ -15,6 +15,8 @@
 
 void kmain(void) {
 	terminal_init();
-	writes("Test\n", 0, 15);
 	gdt_load();
+	idt_start();
+	__asm__ __volatile__ ("sti");
+	__asm__ __volatile__ ("int $0x16");
 }
