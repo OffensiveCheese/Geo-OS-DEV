@@ -19,5 +19,10 @@ extern void terminal_init();
 extern void lgdt(void);
 extern void gdt_set_entry(int num, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags);
 extern void gdt_load(void);
-
+extern void* memset(void* ptr, int val, size_t size);
+extern int default_isr_handler(void);
+extern int default_irq_handler(void);
+extern void lidt(uintptr_t base, size_t limit);
+extern void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector, uint8_t flags);
+extern void idt_start(void);
 #endif
