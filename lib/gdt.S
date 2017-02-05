@@ -14,3 +14,4 @@ code_segm:
 	mov %eax, %gs
 	mov %eax, %ss
 	ret
+

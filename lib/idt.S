@@ -14,25 +14,46 @@ pushall:
 	pushl %edi
 	pushl %ds
 	pushl %es
+	ret
 popall:
 	popl %es
 	popl %ds
 	popl %edi
 	popl %esi
 	popl %ebp
+	ret
 iret:
 	iret
+	ret
 
 default_isr_handler:
-	jmp pushall
-	jmp popall
-	jmp iret
+	pusha
+	pushl %ebp
+	pushl %esi
+	pushl %edi
+	pushl %ds
+	pushl %es
+	popl %es
+	popl %ds
+	popl %edi
+	popl %esi
+	popl %ebp
+	iret
 	ret
 default_irq_handler:
-	jmp pushall
+	pusha
+	pushl %ebp
+	pushl %esi
+	pushl %edi
+	pushl %ds
+	pushl %es
 	call default_irq_c_handler
-	jmp popall
-	jmp iret
+	popl %es
+	popl %ds
+	popl %edi
+	popl %esi
+	popl %ebp
+	iret
 	ret
 
 idt_flush:
