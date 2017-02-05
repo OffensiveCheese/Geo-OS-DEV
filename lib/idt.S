@@ -1,8 +1,11 @@
 .global pushall
 .global popall
 .global iret
+.global default_isr_handler
+.global default_irq_handler
 .global idt_flush
 .extern idtptr
+.extern default_irq_c_handler
 
 pushall:
 	pusha
@@ -12,11 +15,8 @@ pushall:
 	pushl %ds
 	pushl %es
 	pushl %fs
-	pushl %gs
 	ret
-popall:
-	popl %gs
-	popl %fs
+popall:	popl %fs
 	popl %es
 	popl %ds
 	popl %edi
@@ -25,6 +25,18 @@ popall:
 	ret
 iret:
 	iret
+	ret
+
+default_isr_handler:
+	call pushall
+	call popall
+	call iret
+	ret
+default_irq_handler:
+	call pushall
+	call default_irq_c_handler
+	call popall
+	call iret
 	ret
 
 idt_flush:

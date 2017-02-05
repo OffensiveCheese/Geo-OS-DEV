@@ -20,23 +20,13 @@ struct idtr {
 struct idt_table idt[256];
 struct idtr idtptr;
 
-int default_isr_handler(void) {
-	pushall();
-	writes("isr\n", 0, 15);
-	popall();
-	iret();
-	return 0;
-}
-
-int default_irq_handler(void) {
-	pushall();
-	writes("irq\n", 0, 15);
+int default_irq_c_handler(void) {
 	__asm__ volatile ("outb %0, %1" : : "a"((uint8_t)0x20), "Nd"((uint16_t)0x20) );
-	popall();
-	iret();
 	return 0;
 }
 
+extern int default_isr_handler(void);
+extern int default_irq_handler(void);
 
 
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector, uint8_t flags) {

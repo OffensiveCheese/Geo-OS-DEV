@@ -23,6 +23,7 @@ extern void* memset(void* ptr, int val, size_t size);
 extern void pushall(void);
 extern void popall(void);
 extern void iret(void);
+extern int default_irq_c_handler(void);
 extern int default_isr_handler(void);
 extern int default_irq_handler(void);
 extern void lidt(uintptr_t base, size_t limit);
