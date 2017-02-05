@@ -21,6 +21,7 @@ popall:
 	popl %edi
 	popl %esi
 	popl %ebp
+	popa
 	ret
 iret:
 	iret
@@ -38,6 +39,7 @@ default_isr_handler:
 	popl %edi
 	popl %esi
 	popl %ebp
+	popa
 	iret
 	ret
 default_irq_handler:
@@ -53,6 +55,7 @@ default_irq_handler:
 	popl %edi
 	popl %esi
 	popl %ebp
+	popa
 	iret
 	ret
 
