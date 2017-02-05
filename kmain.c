@@ -17,6 +17,8 @@ void kmain(void) {
 	terminal_init();
 	gdt_load();
 	idt_start();
+	pic_remap();
 	__asm__ __volatile__ ("sti");
-	__asm__ __volatile__ ("int $0x16");
+	__asm__ __volatile__ ("int $0x10");
+	for(;;);
 }
