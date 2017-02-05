@@ -25,4 +25,10 @@ extern int default_irq_handler(void);
 extern void lidt(uintptr_t base, size_t limit);
 extern void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector, uint8_t flags);
 extern void idt_start(void);
+extern uint8_t inb(uint16_t port);
+extern void outb(uint16_t port, uint8_t val);
+extern void iow(void);
+extern void irq_clear_mask(unsigned char i);
+extern void pic_remap_w(int o1, int o2);
+extern void pic_remap(void);
 #endif
