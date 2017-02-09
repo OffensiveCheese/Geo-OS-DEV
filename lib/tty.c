@@ -74,6 +74,7 @@ void writec(char c, uint8_t bc, uint8_t fc) {
 	*videoptr = c | (attribute << 8);
 	if (x == 80) {
 		newline();
+		x = 1;
 		update_videoptr();
 	} else {
 		x++;

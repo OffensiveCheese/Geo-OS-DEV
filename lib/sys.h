@@ -24,8 +24,10 @@ extern void pushall(void);
 extern void popall(void);
 extern void iret(void);
 extern int default_irq_c_handler(void);
+extern int default_kb_c_handler(void);
 extern int default_isr_handler(void);
 extern int default_irq_handler(void);
+extern int default_kb_handler(void);
 extern void lidt(uintptr_t base, size_t limit);
 extern void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector, uint8_t flags);
 extern void idt_flush(void);
@@ -36,4 +38,6 @@ extern void iow(void);
 extern void irq_clear_mask(unsigned char i);
 extern void pic_remap_w(int o1, int o2);
 extern void pic_remap(void);
+extern const char* append(unsigned char character, const char* string);
+extern void kb_handler(void);
 #endif

@@ -21,14 +21,19 @@ struct idt_table idt[256];
 struct idtr idtptr;
 
 int default_irq_c_handler(void) {
-	writes("Can you hear me?\n", 0, 15);
+	__asm__ volatile ("outb %0, %1" : : "a"((uint8_t)0x20), "Nd"((uint16_t)0x20) );
+	return 0;
+}
+
+int default_kb_c_handler(void) {
+	kb_handler();
 	__asm__ volatile ("outb %0, %1" : : "a"((uint8_t)0x20), "Nd"((uint16_t)0x20) );
 	return 0;
 }
 
 extern int default_isr_handler(void);
 extern int default_irq_handler(void);
-
+extern int default_kb_handler(void);
 
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector, uint8_t flags) {
 	idt[num].base_low = (base >> 0) & 0xFFFF;
@@ -77,7 +82,7 @@ void idt_start(void) {
 	idt_set_gate(30, (unsigned)default_isr_handler, 0x08, 0x8E);
 	idt_set_gate(31, (unsigned)default_isr_handler, 0x08, 0x8E);
 	idt_set_gate(32, (unsigned)default_irq_handler, 0x08, 0x8E);
-	idt_set_gate(33, (unsigned)default_irq_handler, 0x08, 0x8E);
+	idt_set_gate(33, (unsigned)default_kb_handler, 0x08, 0x8E); // IRQ1
 	idt_set_gate(34, (unsigned)default_irq_handler, 0x08, 0x8E);
 	idt_set_gate(35, (unsigned)default_irq_handler, 0x08, 0x8E);
 	idt_set_gate(36, (unsigned)default_irq_handler, 0x08, 0x8E);
