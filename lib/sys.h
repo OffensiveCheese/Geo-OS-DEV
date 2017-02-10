@@ -6,7 +6,9 @@
 #ifndef SYS_H
 #define SYS_H
 
-
+extern int x;
+extern int y;
+extern uint16_t *videoptr;
 extern size_t strlen(const char* str);
 extern void update_videoptr(void);
 extern void newline(void);
@@ -38,6 +40,12 @@ extern void iow(void);
 extern void irq_clear_mask(unsigned char i);
 extern void pic_remap_w(int o1, int o2);
 extern void pic_remap(void);
+extern const char* command;
+extern int strcmp(const char* a, const char* b);
+extern const char* zero_string(const char* string);
+extern const char* extract_char(const char* string, size_t size);
+extern const char* extract_last_chars(const char* string, size_t size);
+extern const char* run(const char* com);
 extern const char* append(unsigned char character, const char* string);
 extern void kb_handler(void);
 #endif

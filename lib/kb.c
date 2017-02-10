@@ -9,19 +9,83 @@ int strcmp(const char* a, const char* b) {
 	return *a - *b;
 }
 
+const char* zero_string(const char* string) {
+	char* str = (char *)string;
+	for (size_t i = strlen(string); i <= strlen(string); i--) {
+		str[i] = '\0';
+	}
+	const char* ret = (const char*)str;
+	return ret; 
+}
+
+const char* extract_char(const char* string, size_t size) {
+	char* final_str_f[(size_t)size];
+	const char* final_str_l = (const char *)final_str_f;
+	zero_string(final_str_l);
+	char* final_str = (char *)final_str_l;
+	for (size_t i = 0; i < size; i++) {
+		final_str[i] = string[i];
+	}
+	return (const char*)final_str;
+}
+
+const char* extract_last_chars(const char* string, size_t size) {
+	char* final_str_f[(size_t)size];
+	const char* final_str_l = (const char *)final_str_f;
+	zero_string(final_str_l);
+	char* final_str = (char *)final_str_l;
+	for (size_t i = (strlen(string) - size); i < strlen(string); i++) {
+		final_str[i] = string[i];
+	}
+	return (const char*)final_str;
+}
+
+
 const char* run(const char* com) {
+	const char* echo_check_char = extract_char(com, 6);
 	if (strcmp(com, "help") == 0) {
-		writes("\nGeo OS v1.0\n", 0, 15);
-		com = "";
+		writes("\nGeo OS v0.0.1\nMade by Nuno F.\n", 0, 15);
+		com = zero_string(com);
+		writes(">", 0, 15);
 		return com;
-	} else {
+	}
+	if (strcmp(com, "clear") == 0) {
+		terminal_cls();
+		x = 0;
+		y = 0;
+		update_videoptr();
+		com = zero_string(com);
+		writes(">", 0, 15);
+		return com;
+	}
+	if (strcmp(com, "command") == 0) {
+		writes("\nWelcome to GEO OS 1.0. There are currently 3 commands:\n", 0, 15);
+		writes("HELP: Shows version information about this OS.\n", 0, 15);
+		writes("CLEAR: Clears the screen.\n", 0, 15);
+		writes("COMMAND: The current command you are executing.\n", 0, 15);
+		writes("--------------------\n", 0, 15);
+		com = zero_string(com);
+		writes(">", 0, 15);
+		return com;
+	}
+	if (strcmp(echo_check_char, "echo ") == 0) {
+		const char* value = extract_last_chars(com, (strlen(com) - 5));
+		writes(value, 0, 15);
+		writes("\n", 0, 15);
+		com = zero_string(com);
+		writes(">", 0, 15);
+		return com;
+	}
+	if (strcmp(com, "clear") != 0 && strcmp(com, "help") != 0 && strcmp(com, "command") != 0 && strcmp(echo_check_char, "echo ") != 0) {
 		writes("\nUnknown command '", 0, 15);
 		writes(command, 0, 15);
 		writes("'", 0, 15);
 		newline();
-		com = "";
+		com = zero_string(com);
+		writes(">", 0, 15);
 		return com;
 	}
+	return com;
 }
 
 unsigned char keyboard_map[] =
