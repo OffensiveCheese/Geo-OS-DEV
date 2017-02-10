@@ -20,5 +20,7 @@ void kmain(void) {
 	pic_remap();
 	__asm__ __volatile__ ("sti");
 	__asm__ __volatile__ ("int $0x10");
+	zero_string(command);
+	writes(">", 0, 15);
 	for(;;);
 }
