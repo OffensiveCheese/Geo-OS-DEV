@@ -42,7 +42,7 @@ const char* extract_last_chars(const char* string, size_t size) {
 
 
 const char* run(const char* com) {
-	const char* echo_check_char = extract_char(com, 6);
+	const char* echo_check_char = extract_char(com, 4);
 	if (strcmp(com, "help") == 0) {
 		writes("\nGeo OS v0.0.1\nMade by Nuno F.\n", 0, 15);
 		com = zero_string(com);
@@ -68,7 +68,7 @@ const char* run(const char* com) {
 		writes(">", 0, 15);
 		return com;
 	}
-	if (strcmp(echo_check_char, "echo ") == 0) {
+	if (strcmp(echo_check_char, "echo") == 0) {
 		const char* value = extract_last_chars(com, (strlen(com) - 5));
 		writes(value, 0, 15);
 		writes("\n", 0, 15);
