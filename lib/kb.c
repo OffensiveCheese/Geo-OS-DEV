@@ -30,11 +30,12 @@ const char* extract_char(const char* string, size_t size) {
 }
 
 const char* extract_last_chars(const char* string, size_t size) {
-	char* final_str_f[(size_t)size];
+	char* final_str_f[strlen(string)];
 	const char* final_str_l = (const char *)final_str_f;
 	zero_string(final_str_l);
 	char* final_str = (char *)final_str_l;
-	for (size_t i = (strlen(string) - size); i < strlen(string); i++) {
+	size_t len = strlen(string);
+	for (size_t i = (len - size); i < strlen(string); i++) {
 		final_str[i] = string[i];
 	}
 	return (const char*)final_str;
@@ -69,7 +70,11 @@ const char* run(const char* com) {
 		return com;
 	}
 	if (strcmp(echo_check_char, "echo ") == 0) {
-		const char* value = extract_last_chars(com, (strlen(com) - 6));
+		size_t size = strlen(com);
+		for (size_t i = 0; i <= 5; i++) {
+			size--; // Decrement size.
+		}
+		const char* value = extract_last_chars(com, size);
 		writes(value, 0, 15);
 		writes("\n", 0, 15);
 		com = zero_string(com);
