@@ -35,9 +35,7 @@ const char* extract_last_chars(const char* string, size_t size) {
 	zero_string(final_str_l);
 	char* final_str = (char *)final_str_l;
 	size_t len = strlen(string);
-	for (size_t i = (len - size); i < strlen(string); i++) {
-		final_str[i] = string[i];
-	}
+	final_str = (char *)&string[len - size];
 	return (const char*)final_str;
 }
 
