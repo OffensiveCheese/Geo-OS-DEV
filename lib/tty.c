@@ -82,9 +82,37 @@ void writec(char c, uint8_t bc, uint8_t fc) {
 	}
 }
 
+void writec_noadvance(char c, uint8_t bc, uint8_t fc) {
+	restrictions_tty(); // Apply restrictions.
+	if (c == '\n') {
+		newline();
+		return;
+	}
+	if (c == '\b') {
+		backspace();
+		*videoptr = ' ' | (((0 << 4) | (0 & 0x0F)) << 8);
+		return;
+	}
+	uint16_t attribute = (bc << 4) | (fc & 0x0F);
+	*videoptr = c | (attribute << 8);
+	if (x == 80) {
+		newline();
+		x = 0;
+		update_videoptr();
+	} else {
+		update_videoptr();
+	}
+}
+
 void writes(const char* c, uint8_t bc, uint8_t fc) {
 	for (size_t i = 0; i < strlen(c); i++) {
 		writec(c[i], bc, fc);
+	}
+}
+
+void writes_noadvance(const char* c, uint8_t bc, uint8_t fc) {
+	for (size_t i = 0; i < strlen(c); i++) {
+		writec_noadvance(c[i], bc, fc);
 	}
 }
 
