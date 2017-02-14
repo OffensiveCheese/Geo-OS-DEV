@@ -63,7 +63,7 @@ const char* run(const char* com) {
 		writes(">", 0, 15);
 		return com;
 	}
-	if (strcmp(com, "clear") == 0) {
+	else if (strcmp(com, "clear") == 0) {
 		kbd_restrictions();
 		terminal_cls();
 		x = 0;
@@ -73,7 +73,7 @@ const char* run(const char* com) {
 		writes(">", 0, 15);
 		return com;
 	}
-	if (strcmp(com, "command") == 0) {
+	else if (strcmp(com, "command") == 0) {
 		kbd_restrictions();
 		writes("\nWelcome to GEO OS 1.0. There are currently 4 commands:\n", 0, 15);
 		writes("VER: Shows version information about this OS. Usage: ver will show the version.\n", 0, 15);
@@ -85,7 +85,7 @@ const char* run(const char* com) {
 		writes(">", 0, 15);
 		return com;
 	}
-	if (strcmp(echo_check_char, "echo ") == 0) {
+	else if (strcmp(echo_check_char, "echo ") == 0) {
 		kbd_restrictions();
 		writes("\n", 0, 15);
 		for (size_t i = 5; i < strlen(com); i++) {
@@ -96,7 +96,7 @@ const char* run(const char* com) {
 		writes(">", 0, 15);
 		return com;
 	}
-	if (strcmp(com, "clear") != 0 && strcmp(com, "help") != 0 && strcmp(com, "command") != 0 && strcmp(echo_check_char, "echo ") != 0) {
+	else {
 		kbd_restrictions();
 		writes("\nUnknown command '", 0, 15);
 		writes(command, 0, 15);
